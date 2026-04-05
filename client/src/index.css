@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: #fafaf9;
+    color: #1c1917;
+  }
+}
+
+@layer components {
+  /* Range slider styling */
+  .slider {
+    @apply w-full h-2 rounded-full appearance-none cursor-pointer;
+    background: linear-gradient(to right, #f97316 0%, #f97316 var(--val, 50%), #e7e5e4 var(--val, 50%), #e7e5e4 100%);
+  }
+  .slider::-webkit-slider-thumb {
+    @apply appearance-none w-5 h-5 rounded-full bg-orange-500 shadow-md border-2 border-white;
+  }
+  .slider::-moz-range-thumb {
+    @apply w-5 h-5 rounded-full bg-orange-500 shadow-md border-2 border-white;
+    border: 2px solid white;
+  }
+}
