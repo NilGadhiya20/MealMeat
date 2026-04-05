@@ -4,7 +4,31 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+
+// ── Environment Safety Check ─────────────────────────────
+if (!process.env.MONGO_URI) {
+  console.error('❌ ERROR: MONGO_URI is not defined in environment variables.');
+  process.exit(1);
+}
+if (!process.env.JWT_SECRET) {
+  console.error('❌ ERROR: JWT_SECRET is not defined in environment variables.');
+  process.exit(1);
+}
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://mealmate.vercel.app'  // Replace with actual Vercel URL
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // ── Routes ──────────────────────────────────────────────
