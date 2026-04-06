@@ -16,7 +16,7 @@ if (!process.env.JWT_SECRET) {
 }
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://mealmate.vercel.app'  // Replace with actual Vercel URL
+  'https://mealmate-gamma.vercel.app'
 ];
 
 app.use(cors({
