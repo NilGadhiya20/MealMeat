@@ -72,10 +72,7 @@ const Contact = () => {
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       setTimeout(() => setToast(false), 5000);
     } catch (err) {
-      // Even if backend is unavailable, show success (contact forms are non-critical)
-      setToast(true);
-      setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-      setTimeout(() => setToast(false), 5000);
+      setError(err.response?.data?.msg || 'Failed to send message. Please try again.');
     } finally {
       setSending(false);
     }
