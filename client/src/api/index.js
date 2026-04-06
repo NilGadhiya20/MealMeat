@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+let backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// Auto-correct if user forgot /api in environment variable
+if (backendUrl.endsWith('/')) backendUrl = backendUrl.slice(0, -1);
+if (!backendUrl.endsWith('/api')) backendUrl += '/api';
+
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: backendUrl,
 });
 
 // Attach JWT token to every request if available
