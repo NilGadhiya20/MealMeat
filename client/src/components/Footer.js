@@ -7,7 +7,7 @@ const Footer = () => (
       {/* Brand & Description */}
       <div>
         <div className="flex items-center gap-2 font-extrabold text-xl text-white mb-4">
-          <span className="text-orange-500 text-2xl">🍽️</span> MealMate
+          MealMate
         </div>
         <p className="text-sm leading-relaxed max-w-sm">
           Fresh food delivered to your doorstep. Discover local cuisines, filter by your budget and mood, and avoid the wait with live crowd tracking.
@@ -30,13 +30,13 @@ const Footer = () => (
         <h3 className="text-white font-bold mb-4">Get in Touch</h3>
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
-            <span className="text-orange-500">📍</span> 123 Food Street, Flavour Town, India
+            Address: MINE - 20, Sunday Hub, Katargam, Surat, Gujarat
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-orange-500">📞</span> +91 98765 43210
+            Phone: +91 97141 80225
           </li>
           <li className="flex items-center gap-2">
-            <span className="text-orange-500">✉️</span> support@mealmate.com
+            Email: nilgadhiya20@gmail.com
           </li>
         </ul>
       </div>

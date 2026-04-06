@@ -28,4 +28,33 @@
     @apply w-5 h-5 rounded-full bg-orange-500 shadow-md border-2 border-white;
     border: 2px solid white;
   }
+
+  /* Float Animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  /* Glassmorphism Classes */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+  .glass-dark {
+    @apply bg-stone-900/80 backdrop-blur-lg border border-white/10 shadow-2xl;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-stone-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-orange-400/50 rounded-full hover:bg-orange-500 transition-colors;
+  }
 }
+

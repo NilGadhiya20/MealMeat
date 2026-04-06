@@ -1,289 +1,201 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-// ── Key Features data ─────────────────────────────────────
 const FEATURES = [
   {
-    icon: '🔍',
     title: 'Smart Search',
     desc: 'Find the perfect meal instantly by name, category, mood, or cuisine — powered by real-time filters.',
-    color: 'bg-blue-50 text-blue-600',
+    color: 'bg-orange-500',
   },
   {
-    icon: '🎓',
     title: 'Student Mode',
-    desc: 'Automatically filters meals under ₹100 and surfaced budget-friendly options designed for students.',
-    color: 'bg-orange-50 text-orange-600',
+    desc: 'Automatically filters meals under ₹100 and surfaces budget-friendly options designed for students.',
+    color: 'bg-stone-900',
   },
   {
-    icon: '😋',
     title: 'Mood Food',
     desc: 'Not sure what to eat? Pick your mood — Spicy, Comfort, Healthy, Sweet or Quick — and we\'ll match it.',
-    color: 'bg-pink-50 text-pink-600',
+    color: 'bg-orange-600',
   },
   {
-    icon: '📊',
-    title: 'Crowd Indicator',
-    desc: 'See live crowd levels at each restaurant — Low, Medium, or High — before you order or visit.',
-    color: 'bg-green-50 text-green-600',
+    title: 'Live Tracking',
+    desc: 'Check restaurant crowd levels and estimated delivery times in real-time to plan your perfect meal.',
+    color: 'bg-stone-800',
   },
 ];
 
-// ── Crowd level cards ─────────────────────────────────────
-const CROWD_LEVELS = [
-  {
-    level: 'Low',
-    emoji: '😌',
-    icon: '🟢',
-    color: 'border-green-400',
-    bg: 'bg-green-50',
-    badge: 'bg-green-100 text-green-700',
-    bar: 'bg-green-400',
-    barWidth: 'w-1/4',
-    desc: 'Restaurant is quiet right now. Best time to dine in, enjoy your meal without waiting, and get fast delivery.',
-    tip: 'Great time to visit!',
-  },
-  {
-    level: 'Medium',
-    emoji: '🙂',
-    icon: '🟡',
-    color: 'border-yellow-400',
-    bg: 'bg-yellow-50',
-    badge: 'bg-yellow-100 text-yellow-700',
-    bar: 'bg-yellow-400',
-    barWidth: 'w-1/2',
-    desc: 'Moderate crowd. Expect a slight wait during peak hours, but service is still smooth and efficient.',
-    tip: 'Usually fine to order.',
-  },
-  {
-    level: 'High',
-    emoji: '😅',
-    icon: '🔴',
-    color: 'border-red-400',
-    bg: 'bg-red-50',
-    badge: 'bg-red-100 text-red-700',
-    bar: 'bg-red-400',
-    barWidth: 'w-3/4',
-    desc: 'Restaurant is currently very busy. Delivery may take longer. Consider scheduling for later or choosing another.',
-    tip: 'Expect delays.',
-  },
-];
-
-// ── About Page ───────────────────────────────────────────
 const About = () => {
   const [studentMode, setStudentMode] = useState(false);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
+
   return (
-    <div className="min-h-screen bg-stone-50 font-sans">
+    <div className="min-h-screen bg-stone-50 pb-20 overflow-x-hidden">
+      
+      {/* ── 1. HERO SECTION ───────────────────────────────────── */}
+      <section className="relative bg-stone-900 text-white pt-24 pb-40 px-4 overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
 
-      {/* ── 1. Hero / Caption Section ──────────────────── */}
-      <section className="bg-gradient-to-br from-orange-500 via-orange-500 to-amber-500 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-20 flex flex-col lg:flex-row items-center gap-12">
-
-          {/* Text */}
-          <div className="flex-1 text-center lg:text-left">
-            <span className="inline-block bg-white/20 text-white text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full mb-5">
-              About MealMate
-            </span>
-            <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
-              Smarter Food Ordering,<br />
-              <span className="text-yellow-300">Built for Everyone 🍽️</span>
-            </h1>
-            <p className="mt-5 text-orange-100 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-              MealMate is a smart food discovery and ordering platform that helps you find
-              the right meal based on your <strong className="text-white">budget, mood, and time</strong>.
-              We partner with local restaurants to bring you fresh, affordable food —
-              with real-time crowd insights so you always order at the right moment.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Link
-                to="/login"
-                className="bg-white text-orange-600 font-bold px-7 py-3 rounded-full hover:bg-yellow-50 transition-colors shadow-md"
-              >
-                Get Started 🚀
-              </Link>
-              <Link
-                to="/"
-                className="border-2 border-white/60 text-white font-bold px-7 py-3 rounded-full hover:bg-white/10 transition-colors"
-              >
-                Explore Menu →
-              </Link>
-            </div>
-          </div>
-
-          {/* Food image / illustration */}
-          <div className="flex-shrink-0 text-center">
-            <div className="relative inline-block">
-              <div className="text-[9rem] drop-shadow-2xl select-none animate-bounce">🍛</div>
-              <div className="absolute -top-2 -right-4 text-4xl animate-spin-slow select-none">🌟</div>
-              <div className="absolute bottom-2 -left-6 text-3xl select-none">🍕</div>
-              <div className="absolute -bottom-2 -right-2 text-3xl select-none">🥗</div>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-block bg-orange-500/20 text-orange-400 text-[10px] font-black tracking-widest uppercase px-5 py-2 rounded-full mb-8 border border-orange-500/30"
+          >
+            The MealMate Mission
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl lg:text-7xl font-black leading-tight mb-8 tracking-tighter"
+          >
+            Smarter Food, <br />
+            <span className="text-orange-500">Better Living.</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg lg:text-xl text-stone-400 max-w-2xl mx-auto font-medium leading-relaxed"
+          >
+            We're redefining how you discover and order food by combining budget-smart filters, mood-based recommendations, and real-time restaurant insights.
+          </motion.p>
         </div>
       </section>
 
-      {/* ── 2. Key Features ────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-stone-800">Why Choose MealMate?</h2>
-          <p className="mt-2 text-stone-500 text-base">Everything you need to find and order the perfect meal.</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* ── 2. FEATURES GRID ─────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 -mt-20 relative z-20">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
           {FEATURES.map((f) => (
-            <div
+            <motion.div
               key={f.title}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 hover:shadow-md hover:-translate-y-1 transition-all duration-200"
+              variants={itemVariants}
+              className="glass-card rounded-[2.5rem] p-8 shadow-2xl hover:scale-[1.02] transition-transform group"
             >
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ${f.color}`}>
-                {f.icon}
+              <div className={`w-12 h-12 rounded-2xl mb-6 flex items-center justify-center text-white font-black text-sm shadow-lg ${f.color}`}>
+                {f.title[0]}
               </div>
-              <h3 className="font-bold text-stone-800 text-base mb-2">{f.title}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
-            </div>
+              <h3 className="text-xl font-bold text-stone-800 mb-3 group-hover:text-orange-500 transition-colors">
+                {f.title}
+              </h3>
+              <p className="text-stone-500 text-sm font-medium leading-relaxed">
+                {f.desc}
+              </p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* ── 3. Student Mode Highlight ───────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="bg-stone-900 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
-
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 text-[12rem] opacity-5 select-none pointer-events-none leading-none">🎓</div>
-
-          <div className="relative flex flex-col lg:flex-row gap-10 items-start">
-
-            {/* Left — text */}
-            <div className="flex-1">
-              <span className="inline-block bg-orange-500/20 text-orange-400 text-xs font-bold tracking-wider uppercase px-3 py-1 rounded-full mb-4">
-                🎓 Student Mode
-              </span>
-              <h2 className="text-3xl font-extrabold mb-4">
-                Designed for<br />
-                <span className="text-orange-400">Student Budgets</span>
-              </h2>
-              <p className="text-stone-400 text-base leading-relaxed mb-6">
-                Eating well on a tight budget is hard. Student Mode makes it effortless —
-                instantly filtering the entire app to show only what fits your wallet.
-              </p>
-
-              <ul className="space-y-3">
-                {[
-                  'Filter meals by student meal budget',
-                  'Show only food types suitable for quick meals',
-                  'Filter by price under ₹100 automatically',
-                ].map((point) => (
-                  <li key={point} className="flex items-start gap-3">
-                    <span className="mt-0.5 w-5 h-5 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center text-xs flex-shrink-0">✓</span>
-                    <span className="text-stone-300 text-sm">{point}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* ── 3. STUDENT MODE INTERACTIVE ───────────────────────── */}
+      <section className="max-w-6xl mx-auto px-4 mt-32">
+        <div className="glass-card rounded-[4rem] p-10 lg:p-20 flex flex-col lg:flex-row items-center gap-16 overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+          
+          <div className="flex-1">
+            <div className="inline-block bg-stone-100 text-stone-500 text-[10px] font-black tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
+              Exclusive Technology
             </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-stone-900 mb-8 tracking-tight">
+              Designed for <br />
+              <span className="text-orange-500">Student Budgets</span>
+            </h2>
+            <p className="text-stone-500 text-lg font-medium leading-relaxed mb-10">
+              Eating well on a tight budget shouldn't be a struggle. Our proprietary Student Mode instantly recalibrates the entire platform to prioritize affordable, high-quality meals.
+            </p>
+            
+            <div className="space-y-4">
+              {['Auto-filter under ₹100', 'Optimized Prep Times', 'Nutrient-Focused Sorting'].map(point => (
+                <div key={point} className="flex items-center gap-4">
+                  <div className="w-6 h-6 bg-orange-500 rounded-lg flex items-center justify-center text-white text-[10px] font-black italic">!</div>
+                  <span className="font-bold text-stone-700 uppercase text-[11px] tracking-widest">{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            {/* Right — interactive toggle demo */}
-            <div className="w-full lg:w-72 bg-stone-800 rounded-2xl p-6 flex-shrink-0">
-              <p className="text-stone-400 text-xs font-semibold uppercase tracking-wider mb-5">Live Preview</p>
-
-              {/* Toggle */}
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-white font-semibold">Student Mode</span>
-                <button
-                  onClick={() => setStudentMode((v) => !v)}
-                  className={`relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none ${
-                    studentMode ? 'bg-orange-500' : 'bg-stone-600'
-                  }`}
-                  aria-label="Toggle student mode demo"
+          {/* Interactive Demo Card */}
+          <motion.div 
+            whileHover={{ rotate: -1 }}
+            className="w-full lg:w-[400px] bg-stone-900 rounded-[3rem] p-10 shadow-3xl text-white relative group"
+          >
+            <div className="absolute inset-0 bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-[3rem]" />
+            <div className="relative z-10">
+              <div className="flex justify-between items-center mb-10">
+                <div>
+                  <h4 className="font-black text-xl mb-1 text-orange-500">Student Mode</h4>
+                  <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Active System</p>
+                </div>
+                <button 
+                  onClick={() => setStudentMode(!studentMode)}
+                  className={`w-14 h-8 rounded-full p-1 transition-colors ${studentMode ? 'bg-orange-500' : 'bg-stone-700'}`}
                 >
-                  <span
-                    className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ${
-                      studentMode ? 'translate-x-7' : 'translate-x-0'
-                    }`}
+                  <motion.div 
+                    animate={{ x: studentMode ? 24 : 0 }}
+                    className="w-6 h-6 bg-white rounded-full shadow-lg"
                   />
                 </button>
               </div>
 
-              {/* Status pills */}
-              <div className="space-y-3">
+              <div className="space-y-6">
                 {[
-                  { label: 'Budget Cap', off: 'No limit', on: '₹100 max' },
-                  { label: 'Meal Filter', off: 'All types', on: 'Quick meals only' },
-                  { label: 'Price Filter', off: 'All prices', on: 'Under ₹100' },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center justify-between text-sm">
-                    <span className="text-stone-400">{item.label}</span>
-                    <span className={`font-semibold px-3 py-0.5 rounded-full text-xs ${
-                      studentMode
-                        ? 'bg-orange-500/20 text-orange-400'
-                        : 'bg-stone-700 text-stone-400'
-                    }`}>
-                      {studentMode ? item.on : item.off}
-                    </span>
+                  { label: 'Budget Cap', val: studentMode ? '₹100' : 'Flexible' },
+                  { label: 'Food Zone', val: studentMode ? 'Value' : 'All' },
+                  { label: 'Priority', val: studentMode ? 'Student' : 'Default' }
+                ].map(item => (
+                  <div key={item.label} className="flex justify-between items-center border-b border-white/10 pb-4">
+                    <span className="text-[10px] font-black text-stone-500 uppercase tracking-widest">{item.label}</span>
+                    <span className={`font-black text-sm uppercase ${studentMode ? 'text-orange-400' : 'text-stone-300'}`}>{item.val}</span>
                   </div>
                 ))}
               </div>
 
-              <p className={`mt-5 text-center text-xs font-bold py-2 rounded-xl transition-colors ${
-                studentMode
-                  ? 'bg-orange-500/20 text-orange-400'
-                  : 'bg-stone-700 text-stone-500'
-              }`}>
-                {studentMode ? '🎓 Student Mode Active!' : 'Toggle to see the difference'}
-              </p>
+              <div className="mt-10 p-4 bg-white/5 rounded-2xl text-center border border-white/5">
+                <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest leading-loose italic">
+                  {studentMode ? '"Optimal student savings active"' : '"Toggle to simulate student mode"'}
+                </p>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── 4. Real-time Crowd Levels ──────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 pb-20">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-stone-800">
-            📊 Real-Time Crowd Levels
-          </h2>
-          <p className="mt-2 text-stone-500 text-base">
-            Know how busy a restaurant is before you order. No more long waits.
-          </p>
+      {/* ── 4. CTA ───────────────────────────────────────────── */}
+      <section className="max-w-4xl mx-auto px-4 mt-32 text-center">
+        <h2 className="text-3xl font-black text-stone-800 mb-8">Ready to order smarter?</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          <Link 
+            to="/" 
+            className="px-10 py-5 bg-orange-500 text-white rounded-[2rem] font-black uppercase text-xs tracking-widest shadow-xl shadow-orange-200 hover:scale-105 active:scale-95 transition-all"
+          >
+            Explore the Menu
+          </Link>
+          <Link 
+            to="/contact" 
+            className="px-10 py-5 bg-stone-900 text-white rounded-[2rem] font-black uppercase text-xs tracking-widest shadow-xl hover:scale-105 active:scale-95 transition-all"
+          >
+            Send us a Note
+          </Link>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {CROWD_LEVELS.map((c) => (
-            <div
-              key={c.level}
-              className={`${c.bg} border-2 ${c.color} rounded-2xl p-6 hover:shadow-md transition-shadow`}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{c.emoji}</span>
-                  <h3 className="font-bold text-stone-800 text-lg">{c.level} Crowd</h3>
-                </div>
-                <span className={`text-xs font-bold px-3 py-1 rounded-full ${c.badge}`}>
-                  {c.icon} {c.level}
-                </span>
-              </div>
-
-              {/* Crowd bar */}
-              <div className="w-full h-2.5 bg-stone-200 rounded-full mb-4 overflow-hidden">
-                <div className={`h-full ${c.bar} ${c.barWidth} rounded-full transition-all`} />
-              </div>
-
-              <p className="text-stone-600 text-sm leading-relaxed mb-4">{c.desc}</p>
-
-              <div className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full ${c.badge}`}>
-                💡 {c.tip}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom note */}
-        <p className="text-center text-stone-400 text-sm mt-8">
-          Crowd levels are updated in real-time by restaurant partners so you can make smarter ordering decisions.
-        </p>
       </section>
+
     </div>
   );
 };
