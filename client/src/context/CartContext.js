@@ -4,21 +4,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [restaurantId, setRestaurantId] = useState(null);
-
-  const addToCart = (dish, restId) => {
-    // Enforce single-restaurant cart
-    if (restaurantId && restId !== restaurantId) {
-      const confirmed = window.confirm(
-        'Your cart has items from another restaurant. Clear cart and add this item?'
-      );
-      if (!confirmed) return;
-      setCartItems([]);
-      setRestaurantId(restId);
-    }
-
-    if (!restaurantId) setRestaurantId(restId);
-
+  const addToCart = (dish) => {
     setCartItems((prev) => {
       const existing = prev.find((item) => item._id === dish._id);
       if (existing) {
@@ -32,25 +18,20 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (dishId) => {
     setCartItems((prev) => {
-      const updated = prev
+      return prev
         .map((item) => (item._id === dishId ? { ...item, quantity: item.quantity - 1 } : item))
         .filter((item) => item.quantity > 0);
-      if (updated.length === 0) setRestaurantId(null);
-      return updated;
     });
   };
 
   const removeItemCompletely = (dishId) => {
     setCartItems((prev) => {
-      const updated = prev.filter((item) => item._id !== dishId);
-      if (updated.length === 0) setRestaurantId(null);
-      return updated;
+      return prev.filter((item) => item._id !== dishId);
     });
   };
 
   const clearCart = () => {
     setCartItems([]);
-    setRestaurantId(null);
   };
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -60,7 +41,6 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cartItems,
-        restaurantId,
         addToCart,
         removeFromCart,
         removeItemCompletely,

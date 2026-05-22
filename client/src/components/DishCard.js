@@ -65,7 +65,7 @@ const DishCard = ({ dish }) => {
                 {cartItem.quantity}
               </span>
               <button 
-                onClick={() => addToCart(dish, dish.restaurant?._id || dish.restaurant)}
+                onClick={() => addToCart(dish)}
                 className="w-8 h-8 flex items-center justify-center bg-white text-orange-500 rounded-lg shadow-sm hover:bg-orange-500 hover:text-white transition-all font-bold"
               >
                 +
@@ -74,7 +74,7 @@ const DishCard = ({ dish }) => {
           ) : (
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => addToCart(dish, dish.restaurant?._id || dish.restaurant)}
+              onClick={() => addToCart(dish)}
               className="px-5 py-2 bg-stone-900 text-white text-xs font-bold rounded-xl hover:bg-orange-500 transition-all shadow-md hover:shadow-orange-200"
             >
               Add to Plate

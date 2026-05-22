@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { placeOrder } from '../api';
 
 const Cart = () => {
-  const { cartItems, restaurantId, removeFromCart, addToCart, clearCart, totalPrice } = useCart();
+  const { cartItems, removeFromCart, addToCart, clearCart, totalPrice } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -103,7 +103,7 @@ const Cart = () => {
                     <div className="flex items-center gap-3 bg-stone-50 border border-stone-200 rounded-2xl p-1 shadow-sm">
                       <button onClick={() => removeFromCart(item._id)} className="w-8 h-8 flex items-center justify-center bg-white text-stone-400 hover:text-stone-800 rounded-xl transition-all font-black shadow-sm">−</button>
                       <span className="font-black text-stone-800 w-4 text-center text-xs">{item.quantity}</span>
-                      <button onClick={() => addToCart(item, restaurantId)} className="w-8 h-8 flex items-center justify-center bg-white text-orange-500 hover:text-orange-600 rounded-xl transition-all font-black shadow-sm">+</button>
+                      <button onClick={() => addToCart(item)} className="w-8 h-8 flex items-center justify-center bg-white text-orange-500 hover:text-orange-600 rounded-xl transition-all font-black shadow-sm">+</button>
                     </div>
                   </motion.div>
                 ))}
